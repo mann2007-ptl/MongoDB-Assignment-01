@@ -130,63 +130,63 @@ const getNoteById = async (req, res) => {
 
 
 
-// // REPLACE — PUT /api/notes/:id
-// const replaceNote = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const { title, content, category, isPinned } = req.body;
+// REPLACE — PUT /api/notes/:id
+const replaceNote = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, content, category, isPinned } = req.body;
 
-//     if (!mongoose.Types.ObjectId.isValid(id)) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "Invalid note ID",
-//         data: null
-//       });
-//     }
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid note ID",
+        data: null
+      });
+    }
 
-//     if (
-//       title === undefined ||
-//       content === undefined ||
-//       category === undefined ||
-//       isPinned === undefined
-//     ) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "All fields are required for PUT request",
-//         data: null
-//       });
-//     }
+    if (
+      title === undefined ||
+      content === undefined ||
+      category === undefined ||
+      isPinned === undefined
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required for PUT request",
+        data: null
+      });
+    }
 
-//     const updatedNote = await Note.findByIdAndUpdate(
-//       id,
-//       { title, content, category, isPinned },
-//       { new: true, overwrite: true, runValidators: true }
-//     );
+    const updatedNote = await Note.findByIdAndUpdate(
+      id,
+      { title, content, category, isPinned },
+      { new: true, overwrite: true, runValidators: true }
+    );
 
-//     if (!updatedNote) {
-//       return res.status(404).json({
-//         success: false,
-//         message: "Note not found",
-//         data: null
-//       });
-//     }
+    if (!updatedNote) {
+      return res.status(404).json({
+        success: false,
+        message: "Note not found",
+        data: null
+      });
+    }
 
-//     res.status(200).json({
-//       success: true,
-//       message: "Note replaced successfully",
-//       data: updatedNote
-//     });
-//   } catch (error) {
-//     res.status(500).json({
-//       success: false,
-//       message: "Server error",
-//       data: null
-//     });
-//   }
-// };
+    res.status(200).json({
+      success: true,
+      message: "Note replaced successfully",
+      data: updatedNote
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+      data: null
+    });
+  }
+};
 
 
 
 module.exports = {
-    createNote, createNoteBulk , getAllNotes , getNoteById
+    createNote, createNoteBulk , getAllNotes , getNoteById , replaceNote 
 }
