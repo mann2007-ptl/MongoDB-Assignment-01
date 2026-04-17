@@ -28,6 +28,33 @@ const createNote = async (req, res) => {
 
 
 
+// ------------------- creating multiple notes together (route-2) ----------------------------
+
+const createNoteBulk = async (req, res) => {
+    try {
+        const { notes } = req.body;
+
+        const newNote = await Note.insertMany(notes);
+
+        res.status(201).json({
+            success: true,
+            message: `${newNote.length} notes created successfully`,
+            data: newNote
+        })
+    }
+
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Server error",
+            data: null
+        });
+    }
+}
+
+
+
+
 module.exports = {
-    createNote,
+    createNote, createNoteBulk
 }
